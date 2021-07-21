@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+  <title>休闲时间</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script>
+    (function () {
+      document.addEventListener('visibilitychange', function () { //浏览器切换事件
+        if (document.visibilityState == 'hidden') { //状态判断
+          //normal_title=document.title;
+          document.title = '你去干嘛了?';
+          // document.getElementById('icon').target = "_blank"    
+          // href = '../images/leaveIcon.png';
+        } else {
+          document.title = '欢迎回来!';
+          // document.getElementById('icon').target = "_blank"
+          // href = '../images/icon.png'; //需要修改的图片路径
+          setTimeout(function () {
+            document.title = '无边落寞技术支持';
+          }, 2000) //计时器
+        }
+      })
+    }())
+  </script>
+  <style>
+    html {
+      font-size: 14px;
+    }
+
+    body {
+      position: relative;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      outline: none;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    #pages {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      background: url(./mouse.jpg);
+    }
+
+    .form-group {
+      width: 80%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .form-control {
+      flex: 3
+    }
+
+    iframe {
+      width: 100%;
+      height: 100vh;
+    }
+
+    .jump {
+      width: 80%;
+      display: flex;
+      align-items: center;
+    }
+
+    .jump ul {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 0;
+    }
+
+    .jump ul li {
+      padding: 2px 5px;
+    }
+
+    .jump ul li a {
+      color: black;
+      font-size: 20px;
+    }
+
+    .jump ul li a:hover {
+      color: rgb(22, 132, 223);
+    }
+
+    .nav {
+      width: 80%;
+      background: rgba(255, 114, 114, 0.6);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav ul {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 0;
+    }
+
+    .nav ul li {
+      padding: 2px 5px;
+    }
+
+    .nav ul li a {
+      color: black;
+      font-size: 16px;
+    }
+
+    .nav ul li a:hover {
+      color: rgb(22, 132, 223);
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      font-size: 14px;
+      color: white;
+      width: 100%;
+      line-height: 30px;
+      display: flex;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    #cnzz_stat_icon_1278907467 {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: rgb(247, 2, 2);
+    }
+
+    #cnzz_stat_icon_1278907467 a {
+      color: white;
+    }
+  </style>
+</head>
+
+<body ontouchstart>
+  <div id="pages">
+    <div class="jump">
+      <ul>
+        跳转：
+        <li><a href="https://www.iqiyi.com/" target="_blank">爱奇艺</a></li>
+        <li><a href="https://www.youku.com/" target="_blank">优酷</a></li>
+        <li><a href="https://www.mgtv.com/" target="_blank">芒果TV</a></li>
+        <li><a href="https://v.qq.com/" target="_blank">腾讯视频</a></li>
+        寻片~
+      </ul>
+    </div>
+    <div v-if="!videoUrl" class="form-group">
+      <input class="form-control" type="text" placeholder="请输入视频资源链接" v-model="url" />
+      <button class="btn btn-danger" @click="getVideoUrl()">获取视频</button>
+    </div>
+    <div class="nav">
+      <ul>
+        站主爱看：
+        <template v-for="(item, index) in siteList">
+          <li><a :href="item.url" target="_blank" :key="index">{{item.name}}</a></li>
+        </template>
+      </ul>
+    </div>
+    <iframe v-if="videoUrl" id="iframe" :src="`https://z1.m1907.cn/?jx=${videoUrl}`" allowtransparency="true"
+      frameborder="0" scrolling="no" allowfullscreen="true" allowtransparency="true"></iframe>
+    <div class="footer">power by lambert </div>
+  </div>
+  <script type="text/javascript">
+    var baseUrl = "https://z1.m1907.cn/?jx="
+    var vm = new Vue({
+      el: '#pages',
+      data() {
+        return {
+          url: '',
+          videoUrl: '',
+          siteList: [{
+            name: "博人传",
+            url: baseUrl + "https://www.iqiyi.com/v_19ryhexwic.html"
+          }, {
+            name: "黑色四叶草",
+            url: baseUrl + "https://www.iqiyi.com/v_19rrdzingg.html"
+          }]
+        }
+      },
+      methods: {
+        getVideoUrl() {
+          // https://www.eggvod.cn/jx.php?lrspm=282716866&zhm_jx=
+          // https://z1.m1907.cn/?jx=
+          if (this.url == '' || this.url == undefined) {
+            alert("视频链接不能为空!!!")
+            return;
+          }
+          this.videoUrl = `https://z1.m1907.cn/?jx=` + this.url
+          console.log(this.videoUrl)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

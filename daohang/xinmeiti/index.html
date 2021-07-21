@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>新媒体导航</title>
+	<base target="_blank" />
+	<link rel="stylesheet" type="text/css" href="css/grid.css">
+	<link rel="stylesheet" type="text/css" href="css/frames.css">
+<!--     <link href=/static/js/chunk-1ccf0c27.js rel=prefetch> -->
+	<style type="text/css">
+		div{margin: 0px;padding: 0px;}
+		.content1 .card .title{
+			height: 45px;
+			line-height: 45px;
+			margin-top: 20px;
+			padding-left: 60px;
+			text-align: left;
+			font-size: 20px;
+			color: #333;
+		}
+		.content1 .card .float_img{
+			width: 95%;
+			height: auto;
+			overflow:hidden;
+			text-align: center;
+			margin: 10px auto;
+			padding: 0px auto;
+			/*outline: 1px solid red;*/
+			-moz-box-shadow: 2px 2px 10px #909090;/*firefox*/
+			-webkit-box-shadow: 2px 2px 10px #909090;/*safari或chrome*/
+			box-shadow:2px 2px 10px #909090;/*opera或ie9*/
+		}
+		.content1 .card .all{
+			display: none;
+			/*display: grid;
+			grid-template-columns: repeat(5, 10%);
+			padding-left: 8%;
+			justify-content: left;*/
+		}
+		.content1 .card .all .neck{
+			margin: 10px 5px;
+			padding: 5px;
+			outline: 1px solid #dfdfdf;
+			-moz-outline-radius: 30px;
+		}
+		.content1 .card hr{
+			margin: 0px auto;
+		}
+		.content1 .card .links{
+			width: 95%;
+			overflow: hidden;
+			margin:  10px auto;
+		}
+		.content1 .card .links a{
+			text-decoration:none;
+		}
+		.content1 .card .links a .brief{
+			width: 22.5%;
+			min-height: 50px;
+			float: left;
+			display: flex;
+            align-items: center;/*垂直居中*/
+            justify-content: center;/*水平居中*/
+			margin-top: 10px;
+			margin-bottom: 10px;
+			margin-left: 2%;
+			padding: 5px;
+			outline: 1px solid #dfdfdf;
+		}
+
+		.content1 .card .float_video{
+			width: 95%;
+			overflow:hidden;
+			text-align: center;
+			margin: 20px auto;
+			padding: 0px auto;
+			-moz-box-shadow: 2px 2px 10px #909090;/*firefox*/
+			-webkit-box-shadow: 2px 2px 10px #909090;/*safari或chrome*/
+			box-shadow:2px 2px 10px #909090;/*opera或ie9*/
+		}
+		.content1 .card .float_video .links{
+
+		}
+		.content1 .card .float_video .links .brief{
+
+		}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<div class="bar">
+			<div class="logo">
+				新媒体导航
+			</div>
+			<ul class="list1">
+				<a target="_self" href="#"><li>全部</li></a>
+				<a target="_self" href="#title_word"><li>文字</li></a>
+				<a target="_self" href="#title_image"><li>图片</li></a>
+				<a target="_self" href="#title_video"><li>视频</li></a>
+				<a target="_self" href="#"><li>音频</li></a>
+				<a target="_self" href="#title_info"><li>资讯网站</li></a>
+				<a target="_self" href="#title_gov"><li>门户网站</li></a>
+				<a target="_self" href="#"><li>心语心愿</li></a>
+				<a target="_self" href="#"><li>最新活动：最美菜市场评选</li></a>
+			</ul>
+		</div>
+		<div class="content1">
+			<div class="top">
+				新媒体导航
+			</div>
+			<div class="card"> 
+				<div class="title" id="title_image">图片</div>
+				<!-- 图片浮动块 -->
+				<div class="float_img">
+					<div class="all">
+						<div class="neck">全部</div>
+						<div class="neck">素材收集</div>
+						<div class="neck">设计灵感</div>
+						<div class="neck">软件学习</div>
+						<div class="neck">快速作图</div>
+					</div>
+					<hr style="align:center;width:84%;color:#ccc;SIZE:2;">
+					<div class="links">
+						<a href="https://www.logosc.cn/so/">
+							<div class="brief">
+								免版权搜索
+							</div>
+						</a>
+						<a href="https://pixabay.com/zh/">
+							<div class="brief">
+								pixabay<br />(CC0、视频需翻墙)
+							</div>
+						</a>
+						<a href="https://www.pexels.com/zh-cn/">
+							<div class="brief">
+								pexels<br>(CC0、英文搜索、视频需翻墙)
+							</div>
+						</a>
+						<a href="http://www.51yuansu.com/">
+							<div class="brief">
+								觅元素<br />(不能直接商用)
+							</div>
+						</a>
+						<a href="https://freephotos.cc/zh">
+							<div class="brief">
+								freephotos<br>CC0，英文搜索、加载慢)
+							</div>
+						</a>
+						<a href="https://unsplash.com/">
+							<div class="brief">
+								Unsplash<br>(免版权，英文搜索、加载慢)
+							</div>
+						</a>
+						<a href="https://unsplash.com/">
+							<div class="brief">
+								CC0.CN<br>(CC0)
+							</div>
+						</a>
+						<a href="https://www.123rf.com.cn/">
+							<div class="brief">
+								123RF<br>(图片购买)
+							</div>
+						</a>
+						<a href="http://pngimg.com/">
+							<div class="brief">
+								pngimg<br>(png图片)
+							</div>
+						</a>
+						<a href="https://visualhunt.com/">
+							<div class="brief">
+								VisualHunt<br>(cc0，图片多)
+							</div>
+						</a>
+						<a href="https://stocksnap.io/">
+							<div class="brief">
+								stocksnap<br>(cc0，摄影图)
+							</div>
+						</a>
+						<a href="https://www.pinterest.com/">
+							<div class="brief">
+								pinterest
+							</div>
+						</a>
+						<a href="https://huaban.com/">
+							<div class="brief">
+								花瓣
+							</div>
+						</a>
+						<a href="https://www.duitang.com/">
+							<div class="brief">
+								堆糖
+							</div>
+						</a>
+
+						<a href="https://www.bigbigwork.com/home">
+							<div class="brief">
+								大作
+							</div>
+						</a>
+						<a href="https://free.veer.com/">
+							<div class="brief">
+								veer<br>(免费商用)
+							</div>
+						</a>
+						<a href="https://bigjpg.com/">
+							<div class="brief">
+								图片放大
+							</div>
+						</a>
+
+					</div>
+				</div>
+
+				<div class="title" id="title_word">文字</div>
+				<!-- 文字浮动块 -->
+				<div class="float_img">
+					<div class="all">
+						<div class="neck">全部</div>
+						<div class="neck">素材收集</div>
+						<div class="neck">设计灵感</div>
+						<div class="neck">软件学习</div>
+						<div class="neck">快速作图</div>
+					</div>
+					<hr style="align:center;width:84%;color:#ccc;SIZE:2;">
+					<div class="links">
+						<a href="http://www.qiuziti.com/">
+							<div class="brief">
+								求字体网<br />查询字体版权
+							</div>
+						</a>
+						<a href="https://www.likefont.com/">
+							<div class="brief">
+								识字体网<br>图片识字
+							</div>
+						</a>
+						<a href="https://igfonts.io/">
+							<div class="brief">
+								特效文字
+							</div>
+						</a>
+						<a href="http://www.fhdq.net/emoji/emojifuhao.html">
+							<div class="brief">
+								emoji表情
+							</div>
+						</a>
+						<a href="http://www.wenangou.com/">
+							<div class="brief">
+								文案狗<br />以字成词/谐音词语
+							</div>
+						</a>
+						<a href="https://www.meihua.info/">
+							<div class="brief">
+								梅花网<br />营销作品宝库
+							</div>
+						</a>
+						<a href="https://www.topys.cn/">
+							<div class="brief">
+								TOPYS顶尖文案
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<!-- 视频浮动块 -->
+				<div class="title" id="title_video">视频</div>
+				<div class="float_video">
+					<div class="all">
+						<div class="neck">全部</div>
+						<div class="neck">素材收集</div>
+						<div class="neck">拍摄灵感</div>
+						<div class="neck">软件学习</div>
+						<div class="neck">快速剪辑</div>
+					</div>
+					<HR style="align:center;width:84%;color:#ccc;SIZE:2;">
+					<div class="links">
+						<a href="https://mixkit.co/">
+							<div class="brief">
+								mixkit<br>(CC0、音乐、加载偶尔不稳)
+							</div>
+						</a>
+						<a href="https://pixabay.com/zh/">
+							<div class="brief">
+								pixabay<br />(CC0、图片、翻墙)
+							</div>
+						</a>
+						<a href="https://www.pexels.com/zh-cn/">
+							<div class="brief">
+								pexels<br>(CC0、图片、翻墙)
+							</div>
+						</a>
+						<a href="https://www.videvo.net/">
+							<div class="brief">
+								videvo<br>(免版权视频、音乐，付费)
+							</div>
+						</a>
+						<a href="http://www.aigei.com/">
+							<div class="brief">
+								爱给网<br>(部分免版权视频、音乐)
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<!-- 资讯浮动块 -->
+				<div class="title" id="title_info">资讯网站</div>
+				<div class="float_video">
+					<div class="all">
+						<div class="neck">全部</div>
+						<div class="neck">素材收集</div>
+						<div class="neck">拍摄灵感</div>
+						<div class="neck">软件学习</div>
+						<div class="neck">快速剪辑</div>
+					</div>
+					<HR style="align:center;width:84%;color:#ccc;SIZE:2;">
+					<div class="links">
+						<a href="https://news.baidu.com/">
+							<div class="brief">
+								百度新闻
+							</div>
+						</a>
+						<a href="https://news.sogou.com/">
+							<div class="brief">
+								搜狗新闻
+							</div>
+						</a>
+						<a href="https://news.sina.com.cn/">
+							<div class="brief">
+								新浪新闻
+							</div>
+						</a>
+						<a href="http://news.sohu.com/">
+							<div class="brief">
+								搜狐新闻
+							</div>
+						</a>
+						<a href="http://www.chinanews.com/">
+							<div class="brief">
+								中国新闻网
+							</div>
+						</a>
+						<a href="http://www.cnr.cn/">
+							<div class="brief">
+								央广网
+							</div>
+						</a>
+						<a href="http://www.china.com.cn/">
+							<div class="brief">
+								中国网
+							</div>
+						</a>
+						<a href="https://www.thepaper.cn/">
+							<div class="brief">
+								澎湃新闻
+							</div>
+						</a>
+						<a href="http://www.people.com.cn/">
+							<div class="brief">
+								人民网
+							</div>
+						</a>
+						<a href="http://www.xinhuanet.com/">
+							<div class="brief">
+								新华社
+							</div>
+						</a>
+						<a href="http://www.gmw.cn/">
+							<div class="brief">
+								光明网
+							</div>
+						</a>
+						<a href="https://www.cctv.com/">
+							<div class="brief">
+								央视网
+							</div>
+						</a>
+						<a href="http://www.cfsn.cn/">
+							<div class="brief">
+								中国食品安全网
+							</div>
+						</a>
+						<a href="http://www.cqn.com.cn/">
+							<div class="brief">
+								中国质量新闻网
+							</div>
+						</a>
+						<a href="http://www.farmer.com.cn/">
+							<div class="brief">
+								中国农网
+							</div>
+						</a>
+						<a href="http://www.ccn.com.cn/">
+							<div class="brief">
+								【中国消费者网】<br>
+								市监局主管、中消协主办
+							</div>
+						</a>
+						<a href="http://www.foodmate.net/">
+							<div class="brief">
+								食品伙伴网
+							</div>
+						</a>
+						<a href="http://www.cnfca.com/">
+							<div class="brief">
+								中国副食流通协会
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<!-- 门户浮动块 -->
+				<div class="title" id="title_gov">门户网站</div>
+				<div class="float_video">
+					<div class="all">
+						<div class="neck">全部</div>
+						<div class="neck">素材收集</div>
+						<div class="neck">拍摄灵感</div>
+						<div class="neck">软件学习</div>
+						<div class="neck">快速剪辑</div>
+					</div>
+					<HR style="align:center;width:84%;color:#ccc;SIZE:2;">
+					<div class="links">
+						<a href="http://www.gov.cn/">
+							<div class="brief">
+								中国政府网
+							</div>
+						</a>
+						<a href="http://www.mofcom.gov.cn/">
+							<div class="brief">
+								商务部
+							</div>
+						</a>
+						<a href="http://www.moa.gov.cn/">
+							<div class="brief">
+								农业农村部
+							</div>
+						</a>
+						<a href="http://www.samr.gov.cn/">
+							<div class="brief">
+								市场监督管理总局
+							</div>
+						</a>
+						<a href="http://www.customs.gov.cn/customs/xwfb34/302425/index.html">
+							<div class="brief">
+								海关总署
+							</div>
+						</a>
+						<a href="http://www.nhc.gov.cn/">
+							<div class="brief">
+								国家卫健委
+							</div>
+						</a>
+						<a href="http://www.chinatax.gov.cn/">
+							<div class="brief">
+								国家税务总局
+							</div>
+						</a>
+						<a href="http://www.scio.gov.cn/index.htm">
+							<div class="brief">
+								国务院新闻办公室
+							</div>
+						</a>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+
+	<script type="text/javascript">
+		
+	</script>
+</body>
+</html>

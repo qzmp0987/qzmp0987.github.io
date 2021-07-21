@@ -1,0 +1,949 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>无边落寞导航</title>
+
+
+
+    <script src="/static/js/jquery-1.12.4.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/search.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/reset.css"/>
+     
+    <link rel="canonical" href="http://www.jikedaohang.com/"/>
+    <meta name="referrer" content="origin"/>
+
+</head>
+<body class="home-template">
+
+
+<nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header">
+                    <span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu"> <span
+                            class="sr-only">Toggle navigation</span> <i class="fa fa-bars"></i> </span>
+                </div>
+
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="content-wrap">
+    <div class="container">
+
+        <div class="col-md-9" style="margin-bottom: 20px">
+
+            <div class="input-group divs" tabindex=0>
+                <input id="searchText" type="text" class="form-control" style="border: 0px"
+                       placeholder="请输入搜索内容" autocomplete="off"/>
+
+
+                <span class="input-group-btn"> <button type="button" id="btnsearch"
+                                                       class="btn btn-success"
+                                                       onclick="btn()"
+                                                       style="border: 0px">搜索</button> </span>
+
+
+            </div>
+
+            <div class="divs">
+                <div id="auto">
+                </div>
+            </div>
+            <div class="main-radio" style="width: 500px;margin: 0 auto">
+                
+                    <input type="radio" value="0" id="radio" name="check" onchange="test(this)" checked/>
+                    <span>百度</span>&nbsp;&nbsp;&nbsp;
+                    <input type="radio" value="1" id="radio" name="check" onchange="test(this)"/>
+                    <span>谷歌</span>&nbsp;&nbsp;&nbsp;
+                    <input type="radio" value="2" id="radio" name="check" onchange="test(this)"/>
+                    <span>必应</span>
+                    <input type="radio" value="3" id="radio" name="check" onchange="test(this)"
+                           />
+                    <span>极客</span>&nbsp;&nbsp;
+                    <input type="radio" value="4" id="radio" name="check" onchange="test(this)"
+                           />
+                    <span>github</span>&nbsp;&nbsp;
+                    <input type="radio" value="5" id="radio" name="check" onchange="test(this)"
+                           />
+                    <span>图片</span>&nbsp;&nbsp;
+                    <input type="radio" value="6" id="radio" name="check" onchange="test(this)"
+                           />
+                    <span>图标</span>&nbsp;&nbsp;
+                
+
+
+            </div>
+        </div>
+
+
+
+        </main>
+        <aside class="col-md-3 sidebar">
+            <!-- start tag cloud widget -->
+            <!-- end tag cloud widget -->
+            <!-- start widget -->
+            <!-- end widget -->
+            <!-- start tag cloud widget -->
+            <!-- end tag cloud widget -->
+            <!-- start widget -->
+            <!-- end widget -->
+            <!-- start widget -->
+            <!-- end widget -->
+        </aside>
+    </div>
+    </div>
+</section>
+
+<a href="#" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+
+<script type="text/javascript" src="/static/js/search.js"></script>
+<script type="text/javascript" src="/static/js/main.js"></script>
+<script type="text/javascript">
+
+    function btn() {
+        var v = document.getElementById("searchText").value;
+        if (v != '') {
+            var url = chooseSerarch()
+
+            if (url == '') {
+                search("https://www.baidu.com/s?wd=" + v)
+            } else {
+                if (url == 0) {
+                    search("https://www.baidu.com/s?wd=" + v)
+                } else if (url == 1) {
+                    search("https://www.google.com.hk/search?q=" + v)
+                } else if (url == 2) {
+                    search('https://cn.bing.com/search?q=' + v)
+                } else if (url == 3) {
+                    search('https://s.geekbang.org/search/c=0/k=' + v + '/t=')
+                } else if (url == 4) {
+                    search('https://github.com/search?q=' + v)
+                } else if (url == 5) {
+                    search('http://image.baidu.com/search/index?tn=baiduimage&ps=1&ct=201326592&lm=-1&cl=2&nc=1&ie=utf-8&word=' + v)
+                } else if (url == 6) {
+                    search('https://www.iconfont.cn/search/index?searchType=icon&q=' + v)
+                }
+            }
+            $("#auto").empty();
+            $("#auto").hide();
+
+        }
+
+
+    }
+
+
+    function search(url) {
+        window.open(url)
+
+    }
+
+    function chooseSerarch() {
+        var radios = document.getElementsByName("check");
+        for (radio in radios) {
+            if (radios[radio].checked) {
+                val = radios[radio].value;
+                return val
+                break;
+            }
+        }
+
+    }
+
+
+    document.onkeydown = function (e) {
+        var theEvent = window.event || e;
+        var code = theEvent.keyCode || theEvent.which;
+        if (code == "13") {//keyCode=13是回车键
+            var v = document.getElementById("searchText").value;
+            if (v != '') {
+                var url = chooseSerarch()
+
+                if (url == '') {
+                    search("https://www.baidu.com/s?wd=" + v)
+                } else {
+                    if (url == 0) {
+                        search("https://www.baidu.com/s?wd=" + v)
+                    } else if (url == 1) {
+                        search("https://www.google.com.hk/search?q=" + v)
+                    } else if (url == 2) {
+                        search('https://cn.bing.com/search?q=' + v)
+                    } else if (url == 3) {
+                        search('https://s.geekbang.org/search/c=0/k=' + v + '/t=')
+                    } else if (url == 4) {
+                        search('https://github.com/search?q=' + v)
+                    } else if (url == 5) {
+                        search('http://image.baidu.com/search/index?tn=baiduimage&ps=1&ct=201326592&lm=-1&cl=2&nc=1&ie=utf-8&word=' + v)
+                    } else if (url == 6) {
+                        search('https://www.iconfont.cn/search/index?searchType=icon&q=' + v)
+                    }
+                }
+                $("#auto").empty();
+                $("#auto").hide();
+            }
+
+        }
+
+    }
+
+
+    $("document").ready(function () {
+        $(".menu li").click(function () {
+            $(".menu li").removeClass("nav-current");//首先移除全部的active
+            $(this).addClass("nav-current");//选中的添加acrive
+        });
+    });
+
+    var today = new Date();
+    var weeks = ["日", "一", "二", "三", "四", "五", "六"];
+    $('.showtime').html(today.getFullYear() + "年" + (today.getMonth() + 1) + "月" + today.getDate() + "日 星期" + weeks[today.getDay()]);
+
+
+</script>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无边科技导航</title>
+<meta name="keywords" content=",网址,实用,酷站,精选"/>
+<meta name="description" content="网址导航，提供集成搜索、名站导航，酷站精选、实用查询、游戏专题、常用软件等上网便利服务，致力于打造国内最实用方便的网址导航。"/>
+<link type="image/x-icon" href="favicon.ico" rel="SHORTCUT ICON" />
+<link href="style/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+ function input_focus(){
+	document.getElementById("input_focus").className = "srch_text srch_text2";
+}
+function input_blur(){
+	document.getElementById("input_focus").className = "srch_text";
+}
+</script>
+</head>
+
+<body onload="document.getElementById('input_focus').focus()">
+<div class="container">
+    <div class="topnav">
+    	<div class="logo"><a href="/daohang/index.htm" title="无边导航" target="_self"><img src="images/logo.png" /></a></div>
+        <ul>
+        	
+		</ul>
+  </div>
+    <div class="clearfix search">
+
+
+
+
+		
+
+</form>
+		
+    </div>
+    <div class="clearfix nav_list icon_list">
+        <div class="clearfix title_bar">
+        	<span class="fl title">常用导航</span>
+            <div class="fl line_hr"></div>
+  
+        </div>
+        <ul class="icon_list">
+            <li>
+            	<a class="icon_box" href="https://51015.cn/demo/shortUrl/index.php">
+                    <img src="https://sina.lt/favicon.ico" />
+                	<span>短网址</span>
+                </a>
+            </li>
+			            <li>
+            	<a class="icon_box" href="https://web.xiaodaka.com/#/login">
+                    <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=540162460,1284356100&fm=26&gp=0.jpg" />
+                	<span>小打卡</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="http://youtube.com/">
+                    <img src="images/sitelogo/youtube.png" />
+                	<span>Youtube</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://www.youtube.com/c/HALLELUYAMEDIA/community">
+                    <img src="https://img06.mifile.cn/v1/MI_542ED8B1722DC/b5895bf2e2b3844af2aa8afb45a8fd70.jpg" />
+                	<span>HALLELUYA MEDIA</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://www.chuangkit.com/startdesign">
+                    <img src="https://www.chuangkit.com/favicon.ico" />
+                	<span>创客贴</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://www.52pojie.cn/">
+                    <img src="images/sitelogo/52.png" />
+                	<span>吾爱破解</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://fanyi.baidu.com/">
+                    <img src="images/sitelogo/fanyi.png" />
+                	<span>百度翻译</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://www.clipconverter.cc/">
+                    <img src="images/sitelogo/2.png" />
+                	<span>youtube下载</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="http://www.135editor.com/">
+                    <img src="images/sitelogo/135.jpg" />
+                	<span>135编辑器</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="http://www.135editor.com/">
+                    <img src="images/sitelogo/hao.jpg" />
+                	<span>小号托管</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://i.ytimg.com/vi/QqKd2qcSJFI/maxresdefault.jpg">
+                    <img src="images/sitelogo/jpg.jpg" />
+                	<span>Tube封面</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="http://xh.5156edu.com/jtof.php">
+                    <img src="images/sitelogo/fan.jpg" />
+                	<span>简繁转换</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="http://helpdoc.touchsprite.com/">
+                    <img src="https://img06.mifile.cn/v1/MI_542ED8B1722DC/976109ff5c47aeff36b71405310802cb.png" />
+                	<span>触动手册</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="http://cp.3v.do/host/index.htm">
+                    <img src="images/sitelogo/zj.png" />
+                	<span>主机面板</span>
+                </a>
+            </li>
+			            <li>
+            	<a class="icon_box" href="http://www.qzm.asia/pan">
+                    <img src="https://ae01.alicdn.com/kf/He7e5b4a90a0944fa8413df4f07bcdf61W.png" />
+                	<span>个人网盘</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="http://24mail.chacuo.net/">
+                    <img src="images/sitelogo/you.png" />
+                	<span>临时邮箱</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://qzm.asia/liuyanban/">
+                    <img src="images/sitelogo/hcw.png" />
+                	<span>求职招聘留言</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="http://om.qq.com/">
+                    <img src="images/sitelogo/qe.png" />
+                	<span>企鹅号</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://www.zybuluo.com/qzmp0987/note/1131420">
+                    <img src="images/sitelogo/bg.png" />
+                	<span>自制表格</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="http://www.google.cn/">
+                    <img src="images/sitelogo/gg.png" />
+                	<span>谷歌搜索</span>
+                </a>
+            </li>
+			 <li>
+            	<a class="icon_box" href="http://www.3v.do/">
+                    <img src="images/sitelogo/3v.png" />
+                	<span>3V主机</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="bj.96weixin.com/">
+                    <img src="images/sitelogo/96.png" />
+                	<span>96编辑器</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="http://www.qzm.asia/qsy/">
+                    <img src="https://img06.mifile.cn/v1/MI_542ED8B1722DC/16c86fc82c30509af8dbc7b7a5bbaee5.jpg" />
+                	<span>视频去水印</span>
+                </a>
+            </li>
+			 <li>
+            	<a class="icon_box" href="http://www.qzm.asia/wxyd/index.html">
+                    <img src="images/sitelogo/wxyd.png" />
+                	<span>微信运动刷步</span>
+                </a>
+            </li>
+			 <li>
+            	<a class="icon_box" href="http://www.qzm.asia/tuchuang/">
+                    <img src="https://ae01.alicdn.com/kf/H1748701e1fb84160806d4e14c979448eA.png" />
+                	<span>网络图床</span>
+                </a>
+            </li>
+			            <li>
+            	<a class="icon_box" href="http://www.sharerw.com/">
+                    <img src="https://img06.mifile.cn/v1/MI_542ED8B1722DC/ae9792da12c718bc6164c74902b9423d.png" />
+                	<span>分享者</span>
+                </a>
+            </li>
+
+			            <li>
+            	<a class="icon_box" href="http://www.qzm.asia/ps">
+                    <img src="https://ae01.alicdn.com/kf/H609f63d69fee4b67b752bf4204ff6950K.png" />
+                	<span>在线PS</span>
+                </a>
+            </li>
+			
+			            <li>
+            	<a class="icon_box" href="http://www.qzm.asia/blog">
+                    <img src="https://ae01.alicdn.com/kf/H4890bf2c7f6d4b5eacca8a76f2c9aa00i.png" />
+                	<span>私人部落格</span>
+                </a>
+            </li>
+			  <li>
+            	<a class="icon_box" href="http://www.qzm.asia/wzry">
+                    <img src="https://ae01.alicdn.com/kf/Hf2e1c1e4d1474eb0b3281e2da15014cdy.jpg" />
+                	<span>王者荣耀代练</span>
+                </a>
+            </li>
+			 <li>
+            	<a class="icon_box" href="http://www.qzm.asia/qr/?m=4&e=L&p=6&text=">
+                    <img src="images/sitelogo/chart.png" />
+                	<span>二维码生成</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+	    <div class="clearfix nav_list icon_list">
+        <div class="clearfix title_bar">
+        	<span class="fl title">常用导航</span>
+            <div class="fl line_hr"></div>
+  
+        </div>
+        <ul class="icon_list">
+            <li>
+            	<a class="icon_box" href="https://www.youtube.com/channel/UCTDxxxzDJslbaGmoqBJogAQ/videos">
+                    <img src="https://img06.mifile.cn/v1/MI_542ED8B1722DC/255c8fc244aecd1f992ba255b8474b64.png" />
+                	<span>丰收华夏教会</span>
+                </a>
+            </li>
+			            <li>
+            	<a class="icon_box" href="https://www.youtube.com/channel/UCz5PtuWtPhbecek3XU5eKXQ/videos">
+                    <img src="https://img06.mifile.cn/v1/MI_542ED8B1722DC/b683fdc0503595f4bcbf0e9c57e9dbcd.png" />
+                	<span>谈天说地</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://zishu.wncx.cn/">
+                    <img src="https://img06.mifile.cn/v1/MI_542ED8B1722DC/49e9f333f0f3c0f9d43c727da72d1044.png" />
+                	<span>字数统计</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://www.videvo.net/">
+                    <img src="https://tenapi.cn/ico/?url=https://www.videvo.net/" />
+                	<span>视频素材</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="http://www.qzm.asia/daohang/xinmeiti/">
+                    <img src="https://img06.mifile.cn/v1/MI_542ED8B1722DC/46f68d5514fab1c08bc6b8f9909e6861.png" />
+                	<span>新媒体导航</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="http://www.qzm.asia/vipjiexi/">
+                    <img src="https://p.pstatp.com/origin/138c80000468aed8c3cb6" />
+                	<span>VIP视频解析</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://tenapi.cn/">
+                    <img src="https://p.pstatp.com/origin/ffd500028109cc01ca0c" />
+                	<span>Api</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://www.lanzou.com/account.php?action=login">
+                    <img src="https://tenapi.cn/ico/?url=https://www.lanzou.com/" />
+                	<span>蓝奏云</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://www.rjsos.com/">
+                    <img src="https://img06.mifile.cn/v1/MI_542ED8B1722DC/aa936cb43309178edaabe4a54eff1cde.png" />
+                	<span>软件SOS_</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://www.aconvert.com/cn/document/">
+                    <img src="https://img06.mifile.cn/v1/MI_542ED8B1722DC/235e2ddd35780f17db13097d6e646421.png" />
+                	<span>转换文档</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://ppt.sotary.com/web/wxapp/index.html">
+                    <img src="https://img06.mifile.cn/v1/MI_542ED8B1722DC/b8031bccfeeb6781b4ce0cbb831e35aa.png" />
+                	<span>PPT超级市场</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="http://www.dxzy163.com/">
+                    <img src="https://img06.mifile.cn/v1/MI_542ED8B1722DC/875f0e0741e0f0098aa8883076effe33.png" />
+                	<span>大学资源网</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://www.oalib.com/">
+                    <img src="https://img06.mifile.cn/v1/MI_542ED8B1722DC/2defaa3848843c8ca4bbf953c8f08565.png" />
+                	<span>Oalib论文</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://aiqicha.baidu.com/">
+                    <img src="https://img06.mifile.cn/v1/MI_542ED8B1722DC/55713355caa7493285b9445fac8a10a5.png" />
+                	<span>爱企查</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="http://t.im/">
+                    <img src="images/sitelogo/duan.png" />
+                	<span>T.IM 短网址</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="http://24mail.chacuo.net/">
+                    <img src="images/sitelogo/you.png" />
+                	<span>临时邮箱</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://qzm.asia/liuyanban/">
+                    <img src="images/sitelogo/hcw.png" />
+                	<span>求职招聘留言</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="http://om.qq.com/">
+                    <img src="images/sitelogo/qe.png" />
+                	<span>企鹅号</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="https://www.zybuluo.com/qzmp0987/note/1131420">
+                    <img src="images/sitelogo/bg.png" />
+                	<span>自制表格</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="http://www.google.cn/">
+                    <img src="images/sitelogo/gg.png" />
+                	<span>谷歌搜索</span>
+                </a>
+            </li>
+			 <li>
+            	<a class="icon_box" href="http://www.3v.do/">
+                    <img src="images/sitelogo/3v.png" />
+                	<span>3V主机</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="bj.96weixin.com/">
+                    <img src="images/sitelogo/96.png" />
+                	<span>96编辑器</span>
+                </a>
+            </li>
+            <li>
+            	<a class="icon_box" href="http://www.qzm.asia/sjmz/view.html">
+                    <img src="images/sitelogo/meinv.png" />
+                	<span>随机妹子</span>
+                </a>
+            </li>
+			 <li>
+            	<a class="icon_box" href="http://www.qzm.asia/wxyd/index.html">
+                    <img src="images/sitelogo/wxyd.png" />
+                	<span>微信运动刷步</span>
+                </a>
+            </li>
+			 <li>
+            	<a class="icon_box" href="http://www.qzm.asia/tuchuang/">
+                    <img src="https://ae01.alicdn.com/kf/H1748701e1fb84160806d4e14c979448eA.png" />
+                	<span>网络图床</span>
+                </a>
+            </li>
+			            <li>
+            	<a class="icon_box" href="http://www.qzm.asia/pan">
+                    <img src="https://ae01.alicdn.com/kf/He7e5b4a90a0944fa8413df4f07bcdf61W.png" />
+                	<span>个人网盘</span>
+                </a>
+            </li>
+
+			            <li>
+            	<a class="icon_box" href="http://www.qzm.asia/ps">
+                    <img src="https://ae01.alicdn.com/kf/H609f63d69fee4b67b752bf4204ff6950K.png" />
+                	<span>在线PS</span>
+                </a>
+            </li>
+			
+			            <li>
+            	<a class="icon_box" href="http://www.qzm.asia/blog">
+                    <img src="https://ae01.alicdn.com/kf/H4890bf2c7f6d4b5eacca8a76f2c9aa00i.png" />
+                	<span>私人部落格</span>
+                </a>
+            </li>
+			  <li>
+            	<a class="icon_box" href="http://www.qzm.asia/wzry">
+                    <img src="https://ae01.alicdn.com/kf/Hf2e1c1e4d1474eb0b3281e2da15014cdy.jpg" />
+                	<span>王者荣耀代练</span>
+                </a>
+            </li>
+			 <li>
+            	<a class="icon_box" href="http://www.qzm.asia/qr/?m=4&e=L&p=6&text=">
+                    <img src="images/sitelogo/chart.png" />
+                	<span>二维码生成</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="nav_list list1">
+        <div class="clearfix title_bar">
+        	<span class="fl title">视频 · 小说 · 游戏 · 新闻 · 军事 · 音乐</span>
+            <div class="fl line_hr"></div>
+        </div>
+        <div class="category"> 
+            <div class="type video"><a href="http://www.1234la.com/shipin.htm">视频</a></div>
+            <ul>
+                <li><a href="http://www.youku.com/">优酷网</a></li>
+                <li><a href="http://www.tudou.com/">土豆网</a></li>
+                <li><a href="http://tv.sohu.com/">搜狐视频</a></li>
+                <li><a href="http://www.ku6.com/">酷6</a></li>
+                <li><a href="http://www.qiyi.com/">奇艺</a></li>
+                <li><a href="http://video.sina.com.cn/">新浪视频</a></li>
+                <li><a href="http://www.6.cn/">六间房</a></li>
+            </ul>
+      
+        </div>
+        <div class="category"> 
+            <div class="type novel"><a href="http://www.1234la.com/xiaoshuo.htm">小说</a></div>
+            <ul>
+                <li><a href="http://www.qidian.com/">起点中文网</a></li>
+                <li><a href="http://www.xxsy.net/">潇湘书院</a></li>
+                <li><a href="http://www.readnovel.com/">小说阅读网</a></li>
+                <li><a href="http://www.hongxiu.com/">红袖添香</a></li>
+                <li><a href="http://www.qdmm.com/">起点女生网</a></li>
+                <li><a href="http://book.douban.com/">豆瓣读书</a></li>
+                <li><a href="http://www.zhulang.com/">逐浪</a></li>
+            </ul>
+   
+        </div>
+        <div class="category"> 
+            <div class="type game"><a href="http://www.1234la.com/youxi/">游戏</a></div>
+            <ul>
+                <li><a href="http://www.4399.com/">4399游戏</a></li>
+                <li><a href="http://www.7k7k.com/">7K7K</a></li>
+                <li><a href="http://www.duowan.com/">多玩游戏</a></li>
+                <li><a href="http://www.17173.com/">17173</a></li>
+                <li><a href="http://www.51mole.com/">摩尔庄园</a></li>
+                <li><a href="http://17roco.qq.com/">洛克王国</a></li>
+                <li><a href="http://www.aobi.com/">奥 比 岛</a></li>
+            </ul>
+ 
+        </div>
+        <div class="category"> 
+            <div class="type news"><a href="http://www.1234la.com/xinwen.htm">新闻</a></div>
+            <ul>
+                <li><a href="http://news.sina.com.cn/">新浪新闻</a></li>
+                <li><a href="http://news.sohu.com/">搜狐新闻</a></li>
+                <li><a href="http://news.163.com/">网易新闻</a></li>
+                <li><a href="http://news.qq.com/">腾讯新闻</a></li>
+                <li><a href="http://news.ifeng.com/">凤凰新闻</a></li>
+                <li><a href="http://www.cntv.cn/">CNTV</a></li>
+                <li><a href="http://cn.reuters.com/">路透中文网</a></li>
+            </ul>
+  
+        </div>
+        <div class="category"> 
+            <div class="type war"><a href="http://www.1234la.com/junshi.htm">军事</a></div>
+            <ul>
+                <li><a href="http://military.china.com/">中华网军事</a></li>
+                <li><a href="http://mil.huanqiu.com/">环球军事</a></li>
+                <li><a href="http://mil.news.sina.com.cn/">新浪军事</a></li>
+                <li><a href="http://www.tiexue.net/">铁血军事</a></li>
+                <li><a href="http://junshi.xilu.com/">西陆军事</a></li>
+                <li><a href="http://news.ifeng.com/mil/">凤凰网军事</a></li>
+                <li><a href="http://www.junshijia.com/">米尔军情</a></li>
+            </ul>
+
+        </div>
+        <div class="category"> 
+            <div class="type music"><a href="http://www.1234la.com/music.htm">音乐</a></div>
+            <ul>
+                <li><a href="http://mp3.baidu.com/">百度MP3</a></li>
+                <li><a href="http://www.lpdj.net/">老婆音乐</a></li>
+                <li><a href="http://www.1ting.com/">一听音乐</a></li>
+                <li><a href="http://www.xiami.com/">虾米音乐</a></li>
+                <li><a href="http://music.google.cn/">谷歌音乐</a></li>
+                <li><a href="http://www.yinyuetai.com/">音悦台</a></li>
+                <li><a href="http://douban.fm/">豆瓣FM</a></li>
+            </ul>
+  
+        </div>
+    </div>
+    <div class="nav_list list1">
+        <div class="clearfix title_bar">
+        	<span class="fl title">购物 · 团购 · 银行 · 交友 · 女性 · 社区</span>
+            <div class="fl line_hr"></div>
+        </div>
+        <div class="category"> 
+            <div class="type shopping"><a href="http://www.1234la.com/gouwu/">购物</a></div>
+            <ul>
+                <li><a href="http://www.taobao.com/go/chn/tbk_channel/channelcode.php?pid=mm_10137986_1602399_8931886&eventid=101329">淘宝网</a></li>
+                <li><a href="http://p.yiqifa.com/c?s=c13d8f2f&w=106466&c=245&i=201&l=0&e=c&t=http://www.amazon.cn">卓越亚马逊</a></li>
+                <li><a href="http://spcode.baidu.com/spcode/spClick?tn=1234la_sp&ctn=0&styleid=2632&tourl=http://union.360buy.com/Union_default.aspx?union_Id=40BAIDU_ANDwebsite_id=1234la_spBAIDU_ANDpagetype=0BAIDU_ANDdirecttype=0">京东商城</a></li>
+                <li><a href="http://p.yiqifa.com/c?s=678e5b68&w=106466&c=247&i=159&l=0&e=c&t=http://www.dangdang.com">当当网</a></li>
+                <li><a href="http://p.yiqifa.com/c?s=dcec17d9&w=106466&c=255&i=150&l=0&e=c&t=http://www.vancl.com">凡客诚品</a></li>
+                <li><a href="http://www.yihaodian.com/">1号店</a></li>
+                <li><a href="http://www.vipshop.com/">唯品会</a></li>
+            </ul>
+ 
+        </div>
+        <div class="category"> 
+            <div class="type group"><a href="http://www.tuan27.com/?utm_source=22040&utm_medium=cps&utm_campaign=dhz">团购</a></div>
+            <ul>
+                <li><a href="http://click.lergao.com/go.aspx?site=meituan&uid=22040">美团</a></li>
+                <li><a href="http://www.jumei.com/?referer=legao_22040">聚美优品</a></li>
+                <li><a href="http://click.lergao.com/go.aspx?site=nuomi&uid=22040">糯米</a></li>
+                <li><a href="http://click.lergao.com/go.aspx?site=55tuan&uid=22040">窝窝团</a></li>
+                <li><a href="http://click.lergao.com/go.aspx?site=gaopeng&uid=22040">高朋</a></li>
+                <li><a href="http://www.tuan27.com/?utm_source=22040&utm_medium=cps&utm_campaign=dhz">团27</a></li>
+                <li><a href="http://www.12dian.com/cps/trackLegou.php?cps=legou&u_id=123&w_id=22040">12点零食网</a></li>
+            </ul>
+          
+        </div>
+        <div class="category"> 
+            <div class="type bank"><a href="http://www.1234la.com/yinhang.htm">银行</a></div>
+            <ul>
+                <li><a href="http://www.icbc.com.cn/">工商银行</a></li>
+                <li><a href="http://www.ccb.com/">建设银行</a></li>
+                <li><a href="http://www.abchina.com/">农业银行</a></li>
+                <li><a href="http://www.cmbchina.com/">招商银行</a></li>
+                <li><a href="http://www.boc.cn/">中国银行</a></li>
+                <li><a href="http://www.bankcomm.com/">交通银行</a></li>
+                <li><a href="http://www.alipay.com/">支付宝</a></li>
+            </ul>
+        
+        </div>
+        <div class="category"> 
+            <div class="type friend"><a href="http://www.1234la.com/jiaoyou.htm">交友</a></div>
+            <ul>
+                <li><a href="http://reg.jiayuan.com/st/?id=4862&url=http://reg.jiayuan.com">世纪佳缘</a></li>
+                <li><a href="http://love.zhenai.com/901166.html">珍爱婚恋网</a></li>
+                <li><a href="http://www.baihe.com/">百合网</a></li>
+                <li><a href="http://yuehui.163.com/">网易同城约会</a></li>
+                <li><a href="http://www.ipart.cn/">爱情公寓</a></li>
+                <li><a href="http://www.marry5.com/">嫁我网</a></li>
+                <li><a href="http://www.supei.com/">速配网</a></li>
+            </ul>
+
+        </div>
+        <div class="category"> 
+            <div class="type women"><a href="http://www.1234la.com/nvxing.htm">女性</a></div>
+            <ul>
+                <li><a href="http://www.pclady.com.cn/">太平洋女性</a></li>
+                <li><a href="http://www.meixie.com/">美鞋网</a></li>
+                <li><a href="http://women.sohu.com/">搜狐女人</a></li>
+                <li><a href="http://lady.qq.com/">腾讯女性</a></li>
+                <li><a href="http://www.rayli.com.cn/">瑞丽</a></li>
+                <li><a href="http://www.taobao.com/go/act/mmbd/pd022.php?pid=mm_10137986">淘宝女人</a></li>
+                <li><a href="http://eladies.sina.com.cn/">新浪女性</a></li>
+            </ul>
+
+        </div>
+        <div class="category"> 
+            <div class="type community"><a href="http://www.1234la.com/bbs.htm">社区</a></div>
+            <ul>
+                <li><a href="http://www.tianya.cn/">天涯社区</a></li>
+                <li><a href="http://www.mop.com/">猫扑</a></li>
+                <li><a href="http://qzone.qq.com/">QQ空间</a></li>
+                <li><a href="http://www.renren.com/">人人网</a></li>
+                <li><a href="http://bbs.ithome.com/">Win7之家论坛</a></li>
+                <li><a href="http://www.weibo.com/">新浪微博</a></li>
+                <li><a href="http://t.qq.com/">腾讯微博</a></li>
+            </ul>
+ 
+        </div>
+    </div>
+    <div class="nav_list list1">
+        <div class="clearfix title_bar">
+        	<span class="fl title">财经 · 汽车 · 电脑 · 手机 · 邮箱</span>
+            <div class="fl line_hr"></div>
+        </div>
+        <div class="category"> 
+            <div class="type financial"><a href="http://www.1234la.com/gupiao.htm">财经</a></div>
+            <ul>
+                <li><a href="http://www.eastmoney.com/">东方财富</a></li>
+                <li><a href="http://finance.sina.com.cn/">新浪财经</a></li>
+                <li><a href="http://www.jrj.com.cn/">金融界</a></li>
+                <li><a href="http://www.1234567.com.cn/">天天基金</a></li>
+                <li><a href="http://www.stockstar.com/">证券之星</a></li>
+                <li><a href="http://business.sohu.com/">搜狐财经</a></li>
+                <li><a href="http://finance.qq.com/">腾讯财经</a></li>
+            </ul>
+      
+        </div>
+        <div class="category"> 
+            <div class="type car"><a href="http://www.1234la.com/qiche.htm">汽车</a></div>
+            <ul>
+                <li><a href="http://www.autohome.com.cn/">汽车之家</a></li>
+                <li><a href="http://auto.sina.com.cn/">新浪汽车</a></li>
+                <li><a href="http://www.pcauto.com.cn/">太平洋汽车</a></li>
+                <li><a href="http://www.xcar.com.cn/">爱卡汽车</a></li>
+                <li><a href="http://auto.sohu.com/">搜狐汽车</a></li>
+                <li><a href="http://xuanche.baidu.com/">百度选车</a></li>
+                <li><a href="http://www.bitauto.com/">易车网</a></li>
+            </ul>
+    
+        </div>
+        <div class="category"> 
+            <div class="type digital"><a href="http://www.1234la.com/shuma.htm">电脑</a></div>
+            <ul>
+                <li><a href="http://it.sohu.com/">搜狐IT</a></li>
+                <li><a href="http://www.zol.com.cn/">中关村在线</a></li>
+                <li><a href="http://tech.sina.com.cn">新浪科技</a></li>
+                <li><a href="http://www.ithome.com/">IT之家</a></li>
+                <li><a href="http://www.pconline.com.cn/">太平洋电脑</a></li>
+                <li><a href="http://www.pcpop.com/">泡泡网</a></li>
+                <li><a href="http://www.skycn.com/">天空下载</a></li>
+            </ul>
+ 
+        </div>
+        <div class="category"> 
+            <div class="type mobile"><a href="http://www.1234la.com/shouji.htm">手机</a></div>
+            <ul>
+                <li><a href="http://tech.sina.com.cn/mobile/">新浪手机</a></li>
+                <li><a href="http://digi.it.sohu.com/mobile.shtml">搜狐手机</a></li>
+                <li><a href="http://www.3533.com/">手机世界</a></li>
+                <li><a href="http://www.mumayi.com">木蚂蚁</a></li>
+                <li><a href="http://www.10086.cn/">中国移动</a></li>
+                <li><a href="http://www.10010.com/">中国联通</a></li>
+                <li><a href="http://www.ct10000.com/">中国电信</a></li>
+            </ul>
+
+        </div>
+        <div class="category"> 
+            <div class="type mail"><a href="http://www.1234la.com/mail.htm">邮箱</a></div>
+            <ul>
+                <li><a href="http://email.163.com/">163邮箱</a></li>
+                <li><a href="http://www.126.com/">126邮箱</a></li>
+                <li><a href="http://mail.cn.yahoo.com/">雅虎邮箱</a></li>
+                <li><a href="http://mail.sina.com.cn/">新浪邮箱</a></li>
+                <li><a href="http://mail.qq.com/">QQ邮箱</a></li>
+                <li><a href="http://www.hotmail.com/">Hotmail</a></li>
+                <li><a href="http://gmail.google.com/">Gmail</a></li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="nav_list list1">
+        <div class="clearfix title_bar">
+        	<span class="fl title">体育 · 旅游 · 生活 · 酷站</span>
+            <div class="fl line_hr"></div>
+        </div>
+        <div class="category"> 
+            <div class="type sports"><a href="http://www.1234la.com/tiyu.htm">体育</a></div>
+            <ul>
+                <li><a href="http://sports.sina.com.cn/">新浪体育</a></li>
+                <li><a href="http://sports.sohu.com/">搜狐体育</a></li>
+                <li><a href="http://sports.cntv.cn/">CNTV体育</a></li>
+                <li><a href="http://www.hoopchina.com/">虎扑体育</a></li>
+                <li><a href="http://sports.163.com/">网易体育</a></li>
+                <li><a href="http://china.nba.com/">NBA中文</a></li>
+                <li><a href="http://sports.163.com/">网易体育</a></li>
+            </ul>
+ 
+        </div>
+        <div class="category"> 
+            <div class="type tour"><a href="http://www.1234la.com/lvyou.htm">旅游</a></div>
+            <ul>
+                <li><a href="http://market.tuniu.com/Partner_redirect.php?p=1367&cmpid=mkt_07001701&cid=22040&url=http://www.tuniu.com/">途牛网</a></li>
+                <li><a href="http://www.ctrip.com/smartlink/smartlink.asp?c=heima10&url=http://www.ctrip.com">携程网</a></li>
+                <li><a href="http://pc.heima8.com/index.php?p=107332001&c=116200&sc=[subcode]&durl=100002636&a=20036&cc=100004858">艺龙旅行</a></li>
+                <li><a href="http://www.qunar.com/">去哪儿</a></li>
+                <li><a href="http://www.lvmama.com/">驴妈妈旅游网</a></li>
+                <li><a href="http://www.mangocity.com/">芒果网</a></li>
+                <li><a href="http://www.kuxun.cn/">酷讯旅游网</a></li>
+            </ul>
+
+        </div>
+        <div class="category"> 
+            <div class="type house"><a href="http://www.1234la.com/fenleixinxi.htm">生活</a></div>
+            <ul>
+                <li><a href="http://www.ganji.com/">赶集网</a></li>
+                <li><a href="http://www.58.com/">58同城</a></li>
+                <li><a href="http://www.baixing.com/">百姓网</a></li>
+                <li><a href="http://www.soufun.com/">搜房网</a></li>
+                <li><a href="http://house.focus.cn/">焦点房产</a></li>
+                <li><a href="http://www.anjuke.com/">安居客房产</a></li>
+                <li><a href="http://www.zhaopin.com/">智联招聘</a></li>
+            </ul>
+ 
+        </div>
+        <div class="category"> 
+            <div class="type coolSite"><a href="http://www.1234la.com/fenleixinxi.htm">酷站</a></div>
+            <ul>
+                <li><a href="http://www.zmtpc.com/">樟木头电脑维修</a></li>
+                <li><a href="http://www.dmpop.com/">非主流闪图</a></li>
+                <li><a href="http://www.lpdj.net/">非主流DJ音乐</a></li>
+                <li><a href="http://www.u148.net/">有意思吧</a></li>
+                <li><a href="http://www.clubtuzki.com/">兔斯基</a></li>
+                <li><a href="http://huaban.com/">花瓣网</a></li>
+                <li><a href="http://www.doutu111.com/">逗图网</a></li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<div class="logo"><a href="http://wpa.qq.com/msgrd?v=3&uin=248627921&site=qq&menu=yes" title="联系站长" target="_self"><img src="https://ae01.alicdn.com/kf/He8d398560c264b359a373fef60803911I.gif" /></a></div>
+<div class="footer">
+<p>版权所有 &copy; 2019 无边科技导航--</a>粤ICP备08116855号</p>
+</div>
+<div style="display:none;"><script src="http://s4.cnzz.com/stat.php?id=1146412&web_id=1146412" language="JavaScript"></script></div>
+</body>
+</html>
+</body>
+</html>

@@ -1,0 +1,475 @@
+﻿<!DOCTYPE html>
+
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>私人在线音乐播放器-无边落寞</title>
+<div align="center"><img src="img/logo.png" width="300" height="100" />
+</div>
+<link rel="stylesheet" href="css/smusic.css">
+
+</head>
+<body>
+
+<div class="grid-music-container f-usn">
+    <div class="m-music-play-wrap">
+        <div class="u-cover"></div>
+        <div class="m-now-info">
+            <h1 class="u-music-title"><small>...</small><small>...</small></h1>
+            <div class="m-now-controls">
+                <div class="u-control u-process">
+                    <span class="buffer-process"></span>
+                    <span class="current-process"></span>
+                </div>
+                <div class="u-control u-time">00:00/00:00</div>
+                <div class="u-control u-volume">
+                    <div class="volume-process" data-volume="0.50">
+                        <span class="volume-current"></span>
+                        <span class="volume-bar"></span>
+                        <span class="volume-event"></span>
+                    </div>
+                    <a class="volume-control"></a>
+                </div>
+            </div>
+            <div class="m-play-controls">
+                <a class="u-play-btn prev" title="上一曲"></a>
+                <a class="u-play-btn ctrl-play play" title="暂停"></a>
+                <a class="u-play-btn next" title="下一曲"></a><br>
+               
+            </div>
+        </div>
+    </div>
+    <div class="f-cb">&nbsp;</div>
+    <div class="m-music-list-wrap"></div>
+</div>
+<script>setInterval("timenow.innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);//时间
+</script>
+<script src="js/smusic.min.js"></script>
+<script>
+var musicList = [
+
+{
+		title : '想要对你说',
+		singer : '弹唱小蓉',
+		cover  : 'https://ae01.alicdn.com/kf/H1748701e1fb84160806d4e14c979448eA.png',
+		src    : 'https://r1---sn-a5mlrn7l.googlevideo.com/videoplayback?expire=1577254157&ei=ragCXoOxB5iRkwbomJCACw&ip=103.114.179.67&id=o-AAtXqQ1X3kCWTzAsJLMzpnwM3zcEk2r8X1UxtUorPlB1&itag=251&source=youtube&requiressl=yes&mm=31%2C29&mn=sn-a5mlrn7l%2Csn-a5meknes&ms=au%2Crdu&mv=u&mvi=0&pl=24&pcm2=no&mime=audio%2Fwebm&gir=yes&clen=4603049&dur=267.261&lmt=1565013008034673&mt=1577232157&fvip=1&keepalive=yes&fexp=23842630%2C23860862&c=WEB&txp=5431432&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cpcm2%2Cmime%2Cgir%2Cclen%2Cdur%2Clmt&sig=ALgxI2wwRAIgIdoTGsY8fm08kso8m944L-W8_PTsQbt9hsYcZOuuBOgCIHC8J_EqrEkS9bGMvt9nlJkqt5BSF0NtVEUzgtupFpKJ&lsparams=mm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl&lsig=AHylml4wRAIgTJKBRVWLtKKXO_GsB7p4R-XStBfMpYBMosSKeWFvfXoCIAOWYUeV1evQz9Lt_S3d0nz7fRfkjzWQAKGFtqvKpOfe&ratebypass=yes&title=%5Bokdownload.net%5D - 彈唱小蓉 - 想要對你說【我習慣了身邊有你】%5B 歌詞 %5D - 160kbps'
+	},
+		{
+		title : '拥抱你离去',
+		singer : '网络歌曲',
+		cover  : '',
+		src    : 'mp3/yongbao.mp3'
+	},
+	{
+		title : '说干什么呢？',
+		singer : 'k will',
+		cover  : '',
+		src    : 'https://development2.baidupan.com/122504bb/2019/12/25/35bf12e0925ead95c75c791f790d1e23.mp3?st=GkqqK74T_GUuTLdsoFPP9A&e=1577221845&b=Ve9b9AWxUrJTvwPnBLBV6gPWDLRX7wWLU_bUIlFbzAy8HOAx8BDc_c&fi=15588483&up='
+	},
+	{
+		title : '爱情落幕',
+		singer : '谭扬_李姝漫',
+		cover  : '',
+		src    : 'mp3/aqlm.mp3'
+	},
+		{
+		title : '开点药',
+		singer : '大雕_西奥',
+		cover  : '',
+		src    : 'https://development5.baidupan.com/122504bb/2019/12/25/1a080c51ce1620708f8f15d9c8e8c8a3.mp3?st=SBQgvIgue6brlyxfKpB1sg&e=1577222363&b=ArUItAmJBOZThAPsALgEjQjyXC4MYFQiBGQ_c&fi=15588855&up='
+	},
+	{
+		title : '情路弯弯',
+		singer : '龙梅子',
+		cover  : '',
+		src    : 'https://development4.baidupan.com/122508bb/2019/12/25/596d4d1a3918c054d9376b63f14b22c8.mp3?st=3kcKy1_z1gMpQ_fIlmf-zg&e=1577234396&b=AbAKigmZWbpXgVSHBr5X5AT_bWuNR7FH4VuAIuVX9VrcJ217PV75U7wDMArJQolfWA7Naq1HAASkDPQ5zUWU_c&fi=15589709&up='
+	},
+
+	{
+		title : '漂向北方',
+		singer : '黄明志_邓紫棋',
+		cover  : '',
+		src    : 'https://development7.baidupan.com/122505bb/2019/12/25/c93a9c918e59e5326bca089e34ca875a.mp3?st=YiPvYPgOOujfP_0J2yZiPw&e=1577223493&b=CbIIs1DUBOcHyl_bHArdQ6wDCXOkMj1fCB7Na41f7BOBVpAuAAy5TvwP1AswEsVTAUZVd5AGMA5IGswiTU_b0CLgk2CHhQYw_c_c&fi=15589198&up='
+	},
+		{
+		title : '敲敲我的头',
+		singer : '彭佳慧',
+		cover  : '',
+		src    : 'https://development5.baidupan.com/122505bb/2019/12/25/216c644d4410cc630de8549d07d8d864.mp3?st=VB9GzsnPMbOIYqk-81fAbA&e=1577224615&b=BbFcyQe1V7RVlVC0UuRX21SQAbpXzFHTU_bUJoAa1AywFsg2wU_a5TsgLqXrsBt1DRBvQBcwJuB3EAYA_c_c&fi=15589426&up='
+	},
+	{
+		title : '月牙湾',
+		singer : '丫蛋蛋,沈虫虫',
+		cover  : '',
+		src    : 'http://fdfs.xmcdn.com/group57/M0B/39/78/wKgLd1yq-VijFepjABrKhmCtQn4502.mp3'
+	},
+	{
+		title : '飘洋过海来看你',
+		singer : '刘明湘',
+		cover  : '',
+		src    : 'https://development7.baidupan.com/122505bb/2019/12/25/6c14343d5c5d3204f09d983118cf2126.mp3?st=RD6wU9P-dOEzzm3wwy5pWw&e=1577224872&b=ArkMrwScULNVtF_bCUekGvQbUXuQEsAa3B7ILm1PxA_bZWmAiDVLADu1msBXMCfwMnCblbj1bPAOAEzw_bMAOFQ6wLIDCIEaVAlVTM_c&fi=15589457&up='
+	},
+	{
+		title : '成都',
+		singer : '赵雷',
+		cover  : '',
+		src    : 'https://development0.baidupan.com/122505bb/2019/12/25/b0bd108b95c4be6aeea6d99c2371f6ac.mp3?st=Mw0bHibk1_hXyT4tvzXFYA&e=1577225093&b=A7kKv1XgVroHyVOyVydVfFMrXSEF4gKMAcIJ7QaCB7gDfwhlUyNVYw_c_c&fi=15589480&up='
+	},
+	{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+	{
+		title : '一生所爱',
+		singer : '卢冠廷',
+		cover  : '',
+		src    : 'https://development4.baidupan.com/122507bb/2019/12/25/4aa52a0cbb2103ab0c731dc536b85b6c.mp3?st=KgIK1kBIs0mrucsUnlsMow&e=1577232976&b=VVwLXQhhVDRZeAciCy5VMwd_aCh0EZAp_bVGZcDFx7UrYC4lrIAecFnAPfVuQF6AWhUu4NyAOoUbNTvAuyAOACnFWYC_bwIklTVWekH9AvmVbQH_awryBOAKmlSpXHFcdlJwAhtaMgHCBbQDOFZnBXUFQlLEDeIDIlEWU24LbgAnAkJVxAuhCGZUcVlPB7AL4VXwBzwKPgQlClhUb1ywXOFS_aQIkWnoBUgXhA_b1WsQV1BVNS5g3rA6dRI1MgC0UAxAK0VScLzwiYVJdZrQc_aC3VVPAciCmU_c&fi=15589699&up='
+	},
+
+	{
+		title : '没有你陪伴我真的好孤单',
+		singer : '梦然',
+		cover  : '',
+		src    : 'https://development4.baidupan.com/122507bb/2019/12/25/4aa52a0cbb2103ab0c731dc536b85b6c.mp3?st=KgIK1kBIs0mrucsUnlsMow&e=1577232976&b=VVwLXQhhVDRZeAciCy5VMwd_aCh0EZAp_bVGZcDFx7UrYC4lrIAecFnAPfVuQF6AWhUu4NyAOoUbNTvAuyAOACnFWYC_bwIklTVWekH9AvmVbQH_awryBOAKmlSpXHFcdlJwAhtaMgHCBbQDOFZnBXUFQlLEDeIDIlEWU24LbgAnAkJVxAuhCGZUcVlPB7AL4VXwBzwKPgQlClhUb1ywXOFS_aQIkWnoBUgXhA_b1WsQV1BVNS5g3rA6dRI1MgC0UAxAK0VScLzwiYVJdZrQc_aC3VVPAciCmU_c&fi=15589699&up='
+	},
+	{
+		title : '爱的世界只有你',
+		singer : '祁隆_樂凡',
+		cover  : '',
+		src    : 'https://development7.baidupan.com/122507bb/2019/12/25/8aabd83b3d8521f5e1ecacc2e6927afd.mp3?st=FYS8FW3cbOrQZzZvtymGoQ&e=1577233183&b=U_bZc_bQSFUb1Yl1_bPUCAB4wP_bXoAC5geGAvAKJ1F7AiAGsgiMVM8C4FGeA9EKvga6U5AMt1TAAogJvwuJBagH41OdXNUE4FHpWK1fJ1BtAXUDZQ_c_c&fi=15589817&up='
+	},
+	{
+		title : '我的好兄弟',
+		singer : '高进_小沈阳',
+		cover  : '',
+		src    : 'https://development0.baidupan.com/122507bb/2019/12/25/0a0c9d99891018cce584f0ffad1c4611.mp3?st=-EHckTSPs0Xp6nU5vCBk0A&e=1577233380&b=A7cOhgeWWbtXmFSGArcEpVK6AbhX0wKABbNb6lPLVToHIwsmBycH61GvAswEvAG6VpgBew1tAWoHJA44BiEE4wPhDoEH4VnuV4pU6wLKBLNSKQEwVyYCNw_c_c&fi=15589840&up='
+	},
+	{
+		title : '我的快乐就是想你',
+		singer : '陈雅森',
+		cover  : '',
+		src    : 'https://development7.baidupan.com/122507bb/201uIIgFXEULJUmwDSUudQ6wX7CLIHrgaCUuQBvFzqVbEFz1v0VLIEggfhU_bEG6wKmCAJb7gWdBLECuF_aJUdNQtFanCKZVs1DpVJUAs1KWUOUFfgg5B3YGMw_c_c&fi=15589847&up='
+	},
+	{
+		title : '123我爱你',
+		singer : '小潘潘',
+		cover  : '',
+		src    : 'https://development5.baidupan.com/122507bb/2019/12/25/7e786fbaf6fb879ad5fb21ea435d97c6.mp3?st=1JJS-OOK35GKQQ9GCi9oDA&e=1577233564&b=BLBeyAe3BOcH_bgXRBbBV8APjDbYMoQOjCXpaelJ1AzBRMV1uA_bVZ1AfDArJQhFDPB7YB4AWkVLFTgACDU71S0ATPXrcHoQSXB7cF4wXdVbQD5w39DOsDhgnfWrFS_bAONUSNdtQOoWdcHugL8UJhQsQfsAcoF61TuU4EA7lPUUt8EtV7eB5cE5AfZBcYFs1XUA90NtwygA4kJslr_bUssDTVF6XS8Dalk_aByECt1CAUMUHfAEwBXRUYQ_c_c&fi=15589856&up='
+	},
+	{
+		title : '凉凉',
+		singer : '杨宗纬_张碧晨',
+		cover  : '',
+		src    : 'https://development4.baidupan.com/122507bb/2019/12/25/d46514ddfa60685d9069405b4bebafc3.mp3?st=6Wf-YDBFswn-idQ0lneeRQ&e=1577233683&b=ALQKrwOJBeVQq1SVUuUCsQf9XSFUdQQiALYLugCyUbRWpgivVLJXy1KvUiRSLwElU_bMK0QSMBuVWglvfUnUCKAC3CqQDmwXmUJNUu1LkAqsH3l3pVPwEnAC0C48Aj1F6ViQIJVR0V7ZSv1KpUuoBo1OQCrUEhQaKVuFb7lLcAucAxgqVA_bcFuFCMVOZSugKQB7ddjFTUBOsA1AuKAOFR8laHCOBU3lfjUuRShFKJAeBTtgroBOMGm1a3W3ZSfQIxAHsKJANuBXBQNg_c_c&fi=15589864&up='
+	},
+	{
+		title : '再见只是陌生人',
+		singer : '庄心妍',
+		cover  : '',
+		src    : 'https://development7.baidupan.com/122507bb/2019/12/25/7299377c8a7f881a3ba53daeae8f4ec3.mp3?st=va4MwDTA6Tb00hHCBoSD0A&e=1577233819&b=ArgAjgCKUbFXvVKHArdX9VSMDHBTf1dxALZc1wKIXrQF8VrRBeBX3VGuArJVnQOoAr5cmQKPU7IEwwGTAeJe5gLqAOMAgFHaV_bZSvQLNV7tUqQzhU7RX2QDCXLgCiV7zBb5a2wWLV7dRvQLsVeIDoQLYXOcCmVPRBLEBlQGEXrkC2ACGAC5RelcsUucC0lfcVOIM0FPCV7QA2FzEAuNe2QXcWrwFqFfeUewC_aVWbA0sCLlxyAmpTNgQkAe8Bhl7NAn4AbQBwUWc_c&fi=15589898&up='
+	},
+	{
+		title : '好可惜',
+		singer : '庄心妍',
+		cover  : '',
+		src    : 'https://development4.baidupan.com/122508bb/2019/12/25/2c971c7660bb6bec9360672554f5004b.mp3?st=sTJUeBeyiPMBwvBTMRC0KQ&e=1577234079&b=ArgAjlPZV7dRuwfSArcAolKKDXEALFRyVOIMpFftV7AA3QyjBuAChFGYBbAK2gOJCLpbslDTA_bMEwVvqXb9T9QLhAOVT3VfpUeAH7ALyACpSKQ1_aAOJU0lSIDOJX0FfFALcMhwaTAuFRgQXYCrwDqgjRW_b9Q_bAObBBtbL10oUzgCMwBzU7BX0lGVB38CPwB0UjQ_c&fi=15589889&up='
+	},
+		{
+		title : '犯错',
+		singer : '顾峰_斯琴高丽',
+		cover  : '',
+		src    : 'https://development5.baidupan.com/122508bb/2019/12/25/72c6a0f6e2641ed751dad611b81f7585.mp3?st=2LUHFBeXKRudrGvt0uV6wg&e=1577234842&b=VOEMhlD_aBOhWj1StVihVPAUgC2Q_c&fi=15589776&up='
+	},	
+		{
+		title : '野狼Disco',
+		singer : '宝石Gem',
+		cover  : '',
+		src    : 'https://development5.baidupan.com/122508bb/2019/12/25/d75a85b1c01c916dc806de25d11ef355.mp3?st=IrSV9gOzOzRKPGeo5LiSOg&e=1577235140&b=VONa9QO1VrQAylSxBxADYgkxWuVX1lbaAbtY0lTdVLFSi1vnBkJVOQUjBDEFOgLlCdxciwzoBa0FzgDrBpcCuVTvWvEDm1a0AMBUqQe_aA7QJ9lomVxlWNgE0WDxUMFQ_aUmFbNwYmVRgFFARyBRgCUAl8XCAMSQVqBSUAbgZuAiBUR1o2A2JWIAA_bVGMHOQMnCQtaaVc6ViYBN1gmVH1UO1JwW2g_c&fi=15589725&up='
+	},	
+		{
+		title : '用你的心来换我的电话号码',
+		singer : 'Yinglee',
+		cover  : '',
+		src    : 'https://r3---sn-huobi-5jje.googlevideo.com/videoplayback?expire=1577255959&ei=tq8CXsr-OY69kwbfsajYBA&ip=103.114.179.67&id=o-AJ1LJQJuuKGQOmcsH2w7ips4ABbJLWjRlhvxBuOTQ1kt&itag=251&source=youtube&requiressl=yes&mime=audio%2Fwebm&gir=yes&clen=4582647&dur=278.201&lmt=1540043453338995&fvip=3&keepalive=yes&fexp=23842630,23860863&c=WEB&txp=5511222&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cmime%2Cgir%2Cclen%2Cdur%2Clmt&sig=ALgxI2wwRAIgJ-e71uHZ6WXZKkygR-Zgz4dO9Ced9ikMu_gI54itEDgCIBciXftU53CPiIWJlOAuUkht2MfD9Yow7AkrFvkCTtU_&ratebypass=yes&title=%5Bokdownload.net%5D%20-%20%5BMV%5D%20Yinglee%3A%20%E7%94%A8%E4%BD%A0%E7%9A%84%E5%BF%83%E4%BE%86%E6%8F%9B%E6%88%91%E7%9A%84%E9%9B%BB%E8%A9%B1%E8%99%9F%E7%A2%BC%20%28Kau%20Jai%20Tur%20Lak%20Bur%20Toh%29%20%28Chinese%20Sub%29%20-%20160kbps&redirect_counter=1&rm=sn-a5mr77s&req_id=ebab6b5479fda3ee&cms_redirect=yes&ipbypass=yes&mip=154.160.17.149&mm=31&mn=sn-huobi-5jje&ms=au&mt=1577234261&mv=m&mvi=2&pl=24&lsparams=ipbypass,mip,mm,mn,ms,mv,mvi,pl&lsig=AHylml4wRgIhALYairi3Q8sh7nAqnvgU9GPmxSYqsKWKa8NJQWp7NSdlAiEAwUoE2Y4nwO4zFkwWf7PmMacGMBDv37963wWSocRQlKQ='
+	},	
+			{
+		title : '孟婆的碗',
+		singer : '魏佳艺',
+		cover  : '',
+		src    : 'https://r1---sn-huobi-5jje.googlevideo.com/videoplayback?expire=1577255339&ei=S60CXouNJ9TXkgaRgIKQAQ&ip=103.114.179.67&id=o-ACNlQgVBK7u3UTcm-6SfLCGYgKavsLXQetJRp2aFUQRE&itag=251&source=youtube&requiressl=yes&mime=audio%2Fwebm&gir=yes&clen=4736329&dur=282.081&lmt=1573157385352815&fvip=1&keepalive=yes&fexp=23842630,23860862&c=WEB&txp=1301222&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cmime%2Cgir%2Cclen%2Cdur%2Clmt&sig=ALgxI2wwRQIgH-lQUmnIhTj2QSWW9bh8GfZZhhz3_C4Wne3UxQPz5YwCIQC2cqaz_Pfsji6Lz02cu5K0iSTBnfkZhIdGVRxPICgrQA%3D%3D&ratebypass=yes&title=%5Bokdownload.net%5D%20-%20%E5%AD%9F%E5%A9%86%E7%9A%84%E7%A2%97%20MV%20-%20%E9%AD%8F%E4%BD%B3%E8%89%BA%20-%20160kbps&redirect_counter=1&rm=sn-a5mrs7e&req_id=549032a853f8a3ee&cms_redirect=yes&ipbypass=yes&mip=154.160.17.149&mm=31&mn=sn-huobi-5jje&ms=au&mt=1577233661&mv=m&mvi=0&pl=24&lsparams=ipbypass,mip,mm,mn,ms,mv,mvi,pl&lsig=AHylml4wRgIhAOhM9aGNm2LbvHm9AS3NSM1DlSCGuvWIMyGDlS1IHn_-AiEApn4qsIW033eNxLK-Xo_v3Via1qR8am9k8XT0OquJ5q4='
+	},	
+			{
+		title : '纳西三部曲',
+		singer : '丽江舞',
+		cover  : '',
+		src    : 'https://r3---sn-5hnednlr.googlevideo.com/videoplayback?expire=1577256140&ei=bLACXv3iJ6eCsfIPsZSlsAI&ip=103.114.179.67&id=o-AM93ZUhttL1XNGsPG9RNoXy_rF-tyL8-buX49YjpKHGB&itag=251&source=youtube&requiressl=yes&mime=audio%2Fwebm&gir=yes&clen=6036259&dur=368.661&lmt=1553599274275100&fvip=3&keepalive=yes&fexp=23842630&c=WEB&txp=5411222&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cmime%2Cgir%2Cclen%2Cdur%2Clmt&sig=ALgxI2wwRQIhANfrspRJP8PmpByPuGoYxWYz7yfdixO3dD5xGxHTKnqUAiBW6ABn2ZduP3eImEiddPRK1mO3tdvt75O9iI1BqrexXQ%3D%3D&ratebypass=yes&title=%5Bokdownload.net%5D%20-%20%E7%B4%8D%E8%A5%BF%E4%B8%89%E9%83%A8%E6%9B%B2%20-%20160kbps&rm=sn-a5mrs7s&req_id=105a064ec931a3ee&ipbypass=yes&cm2rm=sn-huobi-5jje7s,sn-aigesz7s&redirect_counter=3&cms_redirect=yes&mip=154.160.17.149&mm=34&mn=sn-5hnednlr&ms=ltu&mt=1577234483&mv=m&mvi=2&pl=24&lsparams=ipbypass,mip,mm,mn,ms,mv,mvi,pl&lsig=AHylml4wRQIgOUeiRFBYzLPCPzfkjvfwQ817thN8f0B9wgab2nTXBDYCIQD7LPBnPasqRhKF8rgCutpD-3GUn6eTFdGRrii0aS6ATg=='
+	},	
+			{
+		title : '粤语金曲',
+		singer : '精選20首',
+		cover  : '',
+		src    : 'https://r1---sn-huobi-5jje.googlevideo.com/videoplayback?expire=1577256495&ei=z7ECXtqDOYuFkgb3h5fwBg&ip=103.114.179.67&id=o-ALUTEbhMFzek1XVftHebX8_vHwOR0l1AblqimTs7-iob&itag=251&source=youtube&requiressl=yes&mime=audio%2Fwebm&gir=yes&clen=86402148&dur=5162.301&lmt=1550774480589593&fvip=1&keepalive=yes&fexp=23842630&c=WEB&txp=5511222&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cmime%2Cgir%2Cclen%2Cdur%2Clmt&sig=ALgxI2wwRAIgekydHZs3L1hwxDuq0He4PBoqUVKNoYSst6QT45ZUHXoCIErTHCPmr95iT6X4Gtl_HRsmd-Vet1iS5SRS0GJ7tJBf&ratebypass=yes&title=%5Bokdownload.net%5D%20-%20%E3%80%90%E7%B2%A4%E8%AF%AD%E9%87%91%E6%9B%B2%E3%80%91%F0%9F%92%97Beyond%F0%9F%92%97%E8%B0%AD%E5%92%8F%E9%BA%9F%F0%9F%92%97%E7%8E%8B%E8%8F%B2%F0%9F%92%97%E7%8E%8B%E6%9D%B0%F0%9F%92%97%E5%88%98%E5%BE%B7%E5%8D%8E%F0%9F%92%9730%E5%B2%81%E4%BB%A5%E4%B8%8A%E7%94%B7%E4%BA%BA%E5%BF%85%E5%90%AC%E6%9B%B2%F0%9F%92%97Chinese%20pop%20song%F0%9F%92%97%E5%90%AC%E5%8D%81%E5%B9%B4%E9%83%BD%E4%B8%8D%E8%85%BB%F0%9F%92%97%E7%B2%BE%E9%81%B820%E9%A6%96%E6%8A%92%E6%83%85%E6%AD%8C%F0%9F%92%97%E6%AF%8F%E4%B8%80%E9%A6%96%E9%83%BD%E5%A5%BD%E8%81%BD%20%E5%80%BC%E5%BE%97%E6%94%B6%E8%97%8F%F0%9F%92%97%20%E6%97%A0%E6%8D%9F%E9%9F%B3%E8%B3%AA%20-%20160kbps&redirect_counter=1&rm=sn-a5mrz7e&req_id=d837c91f7bcfa3ee&cms_redirect=yes&ipbypass=yes&mip=154.160.17.149&mm=31&mn=sn-huobi-5jje&ms=au&mt=1577234799&mv=m&mvi=0&pl=24&lsparams=ipbypass,mip,mm,mn,ms,mv,mvi,pl&lsig=AHylml4wRQIgTPm6CsuY9uC2JNd-dcyEdYw3RgIZnve5So8KOWG1tZcCIQC1mge11IIMt02CWC_XOczS8bvvyQbglr8MX_bGsUlWPg=='
+	},	
+			{
+		title : '50首全球最值得听的好听的文歌',
+		singer : 'Mellow Gold Soft Love Songs',
+		cover  : '',
+		src    : 'https://r2---sn-huobi-5jje.googlevideo.com/videoplayback?expire=1577256697&ei=mbICXtzNDd-CsfIPy8KFyAM&ip=103.114.179.67&id=o-AMg1Cd5T-EjeCrNwkEbVbAc6Zvqdr6sEQN-ReHFG4zR8&itag=251&source=youtube&requiressl=yes&mime=audio%2Fwebm&gir=yes&clen=106086330&dur=6396.101&lmt=1555768956348302&fvip=2&keepalive=yes&fexp=23842630&c=WEB&txp=5531432&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cmime%2Cgir%2Cclen%2Cdur%2Clmt&sig=ALgxI2wwRgIhALm3Jak3Uas1JUwoahzPX7-Qq8IxPFmQGlNSsnxf_3xDAiEA0bFO2A06PNrnm_oVM548VFBzWv_cT2mhoKAsNfcMtHc=&ratebypass=yes&title=%5Bokdownload.net%5D%20-%2050%E9%A6%96%E5%85%A8%E7%90%83%E6%9C%80%E5%80%BC%E5%BE%97%E5%90%AC%E7%9A%84%E5%A5%BD%E5%90%AC%E7%9A%84%E8%8B%B1%E6%96%87%E6%AD%8C%20%28%20Mellow%20Gold%20Soft%20Love%20Songs%20%29%20%E6%9C%80%E5%8F%A4%E8%80%81%E7%9A%84%E8%8B%B1%E6%96%87%E6%83%85%E6%AD%8C%2070s%2080s%2090s%20-%20%E6%9C%80%E4%BC%9F%E5%A4%A7%E7%9A%84%E6%83%85%E6%AD%8C%E6%9C%89%E5%8F%B2%E4%BB%A5%E6%9D%A5%20%2B%20%E6%9C%80%E4%BC%9F%E5%A4%A7%E7%9A%84%E6%83%85%E6%AD%8C80%E7%9A%8490%20-%20160kbps&redirect_counter=1&rm=sn-a5mr77l&req_id=a87d96013595a3ee&cms_redirect=yes&ipbypass=yes&mip=154.160.17.149&mm=31&mn=sn-huobi-5jje&ms=au&mt=1577234989&mv=m&mvi=1&pl=24&lsparams=ipbypass,mip,mm,mn,ms,mv,mvi,pl&lsig=AHylml4wRQIhAJ4ecq3q1hiHP0Z-0ZgYL57ymHKqpuJZ8U3yzrexsEQrAiAiRk4_bZRjpqhSlBdh05tiI4GJ1EFWLaFO09HO3Z8Xlg=='
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+			{
+		title : '斑马‘斑马',
+		singer : '房东家的猫',
+		cover  : '',
+		src    : 'mp3/bmbm.mp3'
+	},	
+];
+new SMusic({
+	musicList:musicList
+});
+</script>
+
+<div style="text-align:center;">
+<div id="timenow"></div>
+<font size="1">技术支持@无边落寞</font>
+</div>
+</div>
+</body>
+</html>
